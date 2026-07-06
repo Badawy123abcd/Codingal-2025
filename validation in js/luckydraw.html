@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+
+            body {
+                font-family: Arial, sans-serif;
+                background: aliceblue;
+                text-align: center;
+                padding: 30px;
+            }
+
+            h1 {
+                color: navy;
+            }
+
+            input {
+                padding: 8px;
+                margin: 5px;
+                border: 2px solid navy ;
+                border-radius: 6px;
+                width: 200px;
+            }
+            buttom {
+                background-color: navy;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 20px;
+                cursor: pointer;
+            }
+            
+            #timer {
+                color: grey;
+            }
+
+        </style>
+    </head>
+    <body>
+
+    </body>
+    <h1>Lucky Draw</h1>
+    <p>Enter your name and guess a number to win!</p>
+
+    <input type="text" id="name" placeholder="Enter your name">
+    <p id="msg-name"></p>
+    <input type="number" id="guess" placeholder="Guess a number (1-10)">
+    <p id="msg-guess"></p>
+    <button onclick="checkForm()">Submit Guess</button>
+    <p id="result"></p>
+    <p id="timer"></p>
+
+    <script>
+        var seconds = 0;
+        setInterval(function() {
+            seconds++;
+            document.getElementById("timer").innerHTML = "Time elapsed: " + seconds + " seconds";
+        }, 1000);
+
+        function checkForm() {
+            var name = document.getElementById("name").value;
+            var guess = document.getElementById("guess").value;
+            var msgName = document.getElementById("msg-name");
+            var msgGuess = document.getElementById("msg-guess");
+            var result = document.getElementById("result");
+
+            // Reset messages
+            msgName.innerHTML = "";
+            msgGuess.innerHTML = "";
+            result.innerHTML = "";
+
+            // Validate name
+            if (name.trim() === "") {
+                msgName.innerHTML = "Please enter your name.";
+                return;
+            }
+
+            // Validate guess
+            if (guess === "" || isNaN(guess) || guess < 1 || guess > 10) {
+                msgGuess.innerHTML = "Please enter a valid number between 1 and 10.";
+                return;
+            }
+
+            // Generate random number between 1 and 10
+            var randomNum = Math.floor(Math.random() * 10) + 1;
+
+            // Check if the guess is correct
+            if (parseInt(guess) === randomNum) {
+                result.innerHTML = "Congratulations " + name + "! You guessed the correct number: " + randomNum;
+            } else {
+                result.innerHTML = "Sorry " + name + ", the correct number was: " + randomNum;
+            }
+        }
+        
+    </script>
